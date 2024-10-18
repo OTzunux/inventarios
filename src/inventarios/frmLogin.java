@@ -4,6 +4,9 @@
  */
 package inventarios;
 
+import javax.swing.*;
+//import javax.swing.JOptionPane;
+
 /**
  *
  * @author Farasi
@@ -14,7 +17,11 @@ public class frmLogin extends javax.swing.JFrame {
      * Creates new form frmLogin
      */
     public frmLogin() {
+        this.setTitle("Login");
         initComponents();
+        setupEnterKeyAction();  
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -113,8 +120,29 @@ public class frmLogin extends javax.swing.JFrame {
         String pass = txtPass.getText();
         System.out.println("El usuario es: "+user);        
         System.out.println("El pass es: "+pass);
+            if (user.equals("Admin") && pass.equals("1234")) {
+                JOptionPane.showMessageDialog(this, "Datos Correctos", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                frmMenu menu = new frmMenu();
+                menu.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void setupEnterKeyAction() {
+        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1.doClick();  // Simula un clic en el botón
+            }
+        });
+
+        txtPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1.doClick();  // Simula un clic en el botón
+            }
+        });
+    }
     /**
      * @param args the command line arguments
      */
