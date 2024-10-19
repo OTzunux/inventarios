@@ -6,7 +6,10 @@ package productos;
 
 import inventarios.frmMenuProductos;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -88,6 +91,11 @@ public class frmCaracteristicas extends javax.swing.JFrame {
         BtnModificar.setText("Editar");
 
         BtnEliminar.setText("Eliminar");
+        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarActionPerformed(evt);
+            }
+        });
 
         tableCaracteristicas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -171,9 +179,8 @@ public class frmCaracteristicas extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BtnEliminar)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(BtnModificar)
-                        .addComponent(BtnGuardar))
+                    .addComponent(BtnModificar)
+                    .addComponent(BtnGuardar)
                     .addComponent(BtnSeleccionar))
                 .addGap(19, 19, 19)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,6 +265,69 @@ public class frmCaracteristicas extends javax.swing.JFrame {
     private void BtnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSeleccionarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnSeleccionarActionPerformed
+
+    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
+            // TODO add your handling code here:
+                // Verificar si se ha seleccionado alguna fila en la tabla
+        int selectedRow = tableCaracteristicas.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor, selecciona un registro para eliminar.");
+            return;
+        }
+
+        // Obtener el valor del código de la fila seleccionada (asumiendo que el código está en la primera columna)
+        String codigoSeleccionado = tableCaracteristicas.getValueAt(selectedRow, 0).toString();
+        String nombreSeleccionado = tableCaracteristicas.getValueAt(selectedRow, 1).toString();
+
+        String nombreArchivo = "caracteristicas.txt"; // Archivo de donde eliminar los datos
+
+        try {
+            // Leer todas las líneas del archivo
+            File archivo = new File(nombreArchivo);
+            File tempFile = new File("temp_" + nombreArchivo); // Archivo temporal para escribir los datos nuevos
+            BufferedReader reader = new BufferedReader(new FileReader(archivo));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+            String linea;
+            boolean registroEliminado = false;
+
+            while ((linea = reader.readLine()) != null) {
+                String[] datos = linea.split(",");
+
+                // Si el código o el nombre no coinciden, escribir la línea en el archivo temporal
+                if (!datos[0].equals(codigoSeleccionado) || !datos[1].equals(nombreSeleccionado)) {
+                    writer.write(linea);
+                    writer.newLine();
+                } else {
+                    registroEliminado = true; // Marcar que se eliminó el registro
+                }
+            }
+
+            reader.close();
+            writer.close();
+
+            // Reemplazar el archivo original con el archivo temporal
+            if (registroEliminado) {
+                archivo.delete();
+                tempFile.renameTo(archivo);
+                JOptionPane.showMessageDialog(null, "Registro eliminado correctamente.");
+            } else {
+                tempFile.delete();
+                JOptionPane.showMessageDialog(null, "No se encontró el registro para eliminar.");
+            }
+
+            // Limpiar la tabla y volver a cargar los datos actualizados
+            limpiarTabla(tableCaracteristicas);
+            cargarDatosTabla(); // Carga los datos en la tabla
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar el registro: " + e.getMessage());
+        }
+    }//GEN-LAST:event_BtnEliminarActionPerformed
+
+    public void limpiarTabla(JTable tabla) {
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        modelo.setRowCount(0); // Eliminar todas las filas
+    }
 
     /**
      * @param args the command line arguments
