@@ -5,6 +5,8 @@
 package inventarios;
 
 import javax.swing.*;
+import productos.frmCaracteristicas;
+import productos.frmCategorias;
 
 /**
  *
@@ -47,6 +49,11 @@ public class frmMenuProductos extends javax.swing.JFrame {
         jPanel1.setForeground(java.awt.SystemColor.activeCaption);
 
         jButton1.setText("Definición de Categorias");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Gestión de Productos Menu");
@@ -166,7 +173,9 @@ public class frmMenuProductos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        frmCaracteristicas ir = new frmCaracteristicas();
+        ir.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -194,6 +203,12 @@ public class frmMenuProductos extends javax.swing.JFrame {
         ir.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        frmCategorias ir = new frmCategorias();
+        ir.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
