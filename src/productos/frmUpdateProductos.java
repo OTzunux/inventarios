@@ -291,9 +291,9 @@ public class frmUpdateProductos extends javax.swing.JFrame {
         String nombre = tableProductos.getValueAt(selectedRow, 1).toString(); // Columna 1: Nombre
         String categoria = tableProductos.getValueAt(selectedRow, 2).toString(); // Columna 2: Descripción
         String caracteristica = tableProductos.getValueAt(selectedRow, 3).toString(); // Columna 2: Descripción
-        String precio = tableProductos.getValueAt(selectedRow, 1).toString(); // Columna 1: Nombre
-        String cantidad = tableProductos.getValueAt(selectedRow, 1).toString(); // Columna 1: Nombre
-        String descripcion = tableProductos.getValueAt(selectedRow, 3).toString(); // Columna 2: Descripción
+        String precio = tableProductos.getValueAt(selectedRow, 4).toString(); // Columna 1: Nombre
+        String cantidad = tableProductos.getValueAt(selectedRow, 5).toString(); // Columna 1: Nombre
+        String descripcion = tableProductos.getValueAt(selectedRow, 6).toString(); // Columna 2: Descripción
 
         // Colocar los valores en los campos de texto correspondientes
         txtCodigo.setText(codigo);
