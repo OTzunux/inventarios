@@ -5,9 +5,8 @@
 package inventarios;
 
 import javax.swing.*;
-import productos.frmCaracteristicas;
-import productos.frmCategorias;
-import productos.frmEspecificaciones;
+import productos.*;
+
 
 /**
  *
@@ -192,14 +191,24 @@ public class frmMenuProductos extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        frmProductos pantalla = new frmProductos();
+        pantalla.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        frmBajaProductos pantalla = new frmBajaProductos();
+        pantalla.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        frmUpdateProductos pantalla = new frmUpdateProductos();
+        pantalla.setVisible(true);
+        this.dispose();
+        
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed

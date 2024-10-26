@@ -1,0 +1,1 @@
+4,Moto,Categoria 1,Caracteristica,10000,100,Caracteristica modificada
