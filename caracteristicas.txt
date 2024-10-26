@@ -1,2 +1,0 @@
-1,Caracteristica 1,Ejemplo de una caracteristica
-2,Caracteristica 2,Descripcion No @

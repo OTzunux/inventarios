@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Farasi
  */
 public class frmCaracteristicas extends javax.swing.JFrame {
-
+        String nombreArchivo = "caracteristicas.txt";
     /**
      * Creates new form frmCategorias
      */
@@ -46,13 +48,13 @@ public class frmCaracteristicas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextFieldCodigo = new javax.swing.JTextField();
+        txtCodigo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextAreaDescripcion = new javax.swing.JTextArea();
+        AreaDescripcion = new javax.swing.JTextArea();
         BtnGuardar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jTextFieldNombre = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         BtnModificar = new javax.swing.JButton();
         BtnEliminar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -68,9 +70,9 @@ public class frmCaracteristicas extends javax.swing.JFrame {
 
         jLabel3.setText("Descripcion:");
 
-        jTextAreaDescripcion.setColumns(20);
-        jTextAreaDescripcion.setRows(5);
-        jScrollPane1.setViewportView(jTextAreaDescripcion);
+        AreaDescripcion.setColumns(20);
+        AreaDescripcion.setRows(5);
+        jScrollPane1.setViewportView(AreaDescripcion);
 
         BtnGuardar.setText("Guardar");
         BtnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -89,6 +91,11 @@ public class frmCaracteristicas extends javax.swing.JFrame {
         jLabel4.setText("Nombre:");
 
         BtnModificar.setText("Editar");
+        BtnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnModificarActionPerformed(evt);
+            }
+        });
 
         BtnEliminar.setText("Eliminar");
         BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -138,11 +145,11 @@ public class frmCaracteristicas extends javax.swing.JFrame {
                             .addGap(18, 18, 18)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(34, 34, 34)
                                     .addComponent(jLabel4)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jScrollPane1)))
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -168,9 +175,9 @@ public class frmCaracteristicas extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel4)
-                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,9 +217,9 @@ public class frmCaracteristicas extends javax.swing.JFrame {
     private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
         try {
             // Capturar los datos del formulario
-            int codigo = Integer.parseInt(jTextFieldCodigo.getText());
-            String nombre = jTextFieldNombre.getText();
-            String descripcion = jTextAreaDescripcion.getText();
+            int codigo = Integer.parseInt(txtCodigo.getText());
+            String nombre = txtNombre.getText();
+            String descripcion = AreaDescripcion.getText();
 
             // Crear objeto de la clase Registros
             Registros registro = new Registros();
@@ -222,9 +229,9 @@ public class frmCaracteristicas extends javax.swing.JFrame {
 
             // Llamar al método de guardar de la clase Registros
             registro.guardarDatos("caracteristica");
-            jTextFieldCodigo.setText("");        
-            jTextFieldNombre.setText("");
-            jTextAreaDescripcion.setText("");
+            txtCodigo.setText("");        
+            txtNombre.setText("");
+            AreaDescripcion.setText("");
             DefaultTableModel model = (DefaultTableModel) tableCaracteristicas.getModel();
             model.setRowCount(0); // Elimina todas las filas del modelo
             cargarDatosTabla(); // Carga los datos en la tabla
@@ -240,6 +247,10 @@ public class frmCaracteristicas extends javax.swing.JFrame {
                 "Codigo", "Nombre", "Descripción"  // Nombre de las columnas
             }
         ));
+        
+        tableCaracteristicas.getColumnModel().getColumn(0).setPreferredWidth(50);   // Código
+        tableCaracteristicas.getColumnModel().getColumn(1).setPreferredWidth(100);  // Nombre
+        tableCaracteristicas.getColumnModel().getColumn(2).setPreferredWidth(250);  // Descripción
     }
 
     /**
@@ -247,8 +258,19 @@ public class frmCaracteristicas extends javax.swing.JFrame {
      */
     private void cargarDatosTabla() {
         DefaultTableModel model = (DefaultTableModel) tableCaracteristicas.getModel();
+        
+        // Asegurarte de que el archivo existe antes de guardar
+        File archivo = new File(nombreArchivo);
+        if (!archivo.exists()) {
+            try {
+                archivo.createNewFile(); // Crea el archivo si no existe
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "No se pudo crear el archivo: " + e.getMessage());
+                return;
+            }
+        }
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("caracteristicas.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(nombreArchivo))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 // Divide la línea por comas (asume que el formato es: codigo,nombre,descripcion)
@@ -264,6 +286,20 @@ public class frmCaracteristicas extends javax.swing.JFrame {
     }
     private void BtnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSeleccionarActionPerformed
         // TODO add your handling code here:
+        int selectedRow = tableCaracteristicas.getSelectedRow();
+        if (selectedRow == -1) { // Si no hay ninguna fila seleccionada
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona un registro.");
+            return;
+        }
+        
+        String codigo = tableCaracteristicas.getValueAt(selectedRow, 0).toString(); // Columna 0: Código
+        String nombre = tableCaracteristicas.getValueAt(selectedRow, 1).toString(); // Columna 1: Nombre
+        String descripcion = tableCaracteristicas.getValueAt(selectedRow, 2).toString(); // Columna 2: Descripción
+
+        // Colocar los valores en los campos de texto correspondientes
+        txtCodigo.setText(codigo);
+        txtNombre.setText(nombre);
+        AreaDescripcion.setText(descripcion);
     }//GEN-LAST:event_BtnSeleccionarActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
@@ -278,8 +314,6 @@ public class frmCaracteristicas extends javax.swing.JFrame {
         // Obtener el valor del código de la fila seleccionada (asumiendo que el código está en la primera columna)
         String codigoSeleccionado = tableCaracteristicas.getValueAt(selectedRow, 0).toString();
         String nombreSeleccionado = tableCaracteristicas.getValueAt(selectedRow, 1).toString();
-
-        String nombreArchivo = "caracteristicas.txt"; // Archivo de donde eliminar los datos
 
         try {
             // Leer todas las líneas del archivo
@@ -324,6 +358,61 @@ public class frmCaracteristicas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
+    private void BtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tableCaracteristicas.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona un registro para modificar.");
+            return;
+        }
+
+        // Obtener los valores actualizados desde los campos de texto
+        String codigo = txtCodigo.getText().trim();
+        String nombre = txtNombre.getText().trim();
+        String descripcion = AreaDescripcion.getText().trim();
+
+        if (codigo.isEmpty() || nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El código y el nombre no pueden estar vacíos.");
+            return;
+        }
+
+        // Cargar los registros actuales del archivo a una lista
+        List<String[]> registros = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(nombreArchivo))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                registros.add(data);  // Agregar cada línea a la lista
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al leer los datos: " + e.getMessage());
+            return;
+        }
+
+        // Actualizar el registro en la lista (según la fila seleccionada)
+        registros.get(selectedRow)[0] = codigo;         // Código
+        registros.get(selectedRow)[1] = nombre;         // Nombre
+        registros.get(selectedRow)[2] = descripcion;    // Descripción
+
+        // Sobrescribir el archivo con los registros actualizados
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo, false))) {
+            for (String[] registro : registros) {
+                writer.write(String.join(",", registro));  // Escribir cada registro
+                writer.newLine();
+            }
+            JOptionPane.showMessageDialog(this, "Registro modificado correctamente.");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al guardar los datos: " + e.getMessage());
+        }
+        // Recargar la tabla con los datos actualizados
+        limpiarTabla(tableCaracteristicas);
+        cargarDatosTabla();        
+        txtCodigo.setText("");        
+        txtNombre.setText("");
+        AreaDescripcion.setText("");
+        
+    }//GEN-LAST:event_BtnModificarActionPerformed
+
     public void limpiarTabla(JTable tabla) {
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.setRowCount(0); // Eliminar todas las filas
@@ -332,40 +421,9 @@ public class frmCaracteristicas extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmCaracteristicas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmCaracteristicas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmCaracteristicas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmCaracteristicas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmCaracteristicas().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea AreaDescripcion;
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnGuardar;
     private javax.swing.JButton BtnModificar;
@@ -378,9 +436,8 @@ public class frmCaracteristicas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextAreaDescripcion;
-    private javax.swing.JTextField jTextFieldCodigo;
-    private javax.swing.JTextField jTextFieldNombre;
     private javax.swing.JTable tableCaracteristicas;
+    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

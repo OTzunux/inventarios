@@ -1,5 +1,1 @@
-1,Categoria 1,Ejemplo de descripcion
-2,Categoria 2,Descripcion para categoria 2
-3,Categoria 3,Descripcion para categoria 3
-4,Categoria no 4,
-5,Ejemplo 5555,FFFFFFFFFFFF
+1,Ropa,fsdsdfdssd Editado

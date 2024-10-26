@@ -7,6 +7,7 @@ package inventarios;
 import javax.swing.*;
 import productos.frmCaracteristicas;
 import productos.frmCategorias;
+import productos.frmEspecificaciones;
 
 /**
  *
@@ -180,6 +181,9 @@ public class frmMenuProductos extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        frmEspecificaciones pantalla = new frmEspecificaciones();
+        pantalla.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
